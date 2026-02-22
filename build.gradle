@@ -1,0 +1,87 @@
+plugins {
+    id 'java'
+    id("io.freefair.lombok") version "9.1.0"
+    id("io.qameta.allure") version "3.0.1"
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
+
+    testImplementation("com.fasterxml.jackson.core:jackson-databind:2.20.1")
+
+    implementation("org.aeonbits.owner:owner:1.0.12")
+
+    testImplementation("io.qameta.allure:allure-selenide:2.30.0")
+
+    testImplementation("io.github.bonigarcia:webdrivermanager:6.3.0")
+
+    testImplementation("com.codeborne:selenide:7.12.1")
+
+    testImplementation("io.qameta.allure:allure-junit5:2.30.0")
+
+    testImplementation("org.aspectj:aspectjweaver:1.9.24")
+
+    testImplementation("org.testng:testng:7.8.0")
+
+    testImplementation("io.qameta.allure:allure-testng:2.30.0")
+
+    testImplementation("io.rest-assured:rest-assured:4.4.0")
+
+    testImplementation("io.qameta.allure:allure-rest-assured:2.12.1")
+
+    testImplementation("com.github.javafaker:javafaker:1.0.2")
+}
+
+//tasks.register("testNGRun", Test.class) {
+//    useTestNG()
+//    testLogging {
+//        events("passed", "skipped", "failed")
+//    }
+
+//    tasks.test {
+//        testLogging {
+//            events "passed", "failed", "skipped", "standardOut", "standardError"
+//            showStandardStreams = true
+//            exceptionFormat "full"
+//        }
+//
+//        tasks.withType(Test).configureEach {
+//            systemProperty "allure.results.directory", "${buildDir}/allure-results"
+//        }
+//
+//    }
+
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+
+    // Allure results всегда в build/allure-results
+    systemProperty "allure.results.directory", file("$buildDir/allure-results").absolutePath
+
+    testLogging {
+        events "passed", "failed", "skipped", "standardOut", "standardError"
+        showStandardStreams = true
+        exceptionFormat "full"
+    }
+}
+
+
+
+
+    test {
+        useJUnitPlatform()
+//        useTestNG()
+    }
