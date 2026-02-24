@@ -43,6 +43,8 @@ dependencies {
     testImplementation("io.qameta.allure:allure-rest-assured:2.12.1")
 
     testImplementation("com.github.javafaker:javafaker:1.0.2")
+
+    testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
 //tasks.register("testNGRun", Test.class) {
