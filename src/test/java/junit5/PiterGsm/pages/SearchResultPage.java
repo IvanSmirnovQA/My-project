@@ -16,17 +16,20 @@ public class SearchResultPage {
         this.driver = driver;
     }
 
-    public void openItem(){
+    public ItemPage openItem(){
         driver.findElements(items)//Получаем список элементов, которые выпадают при указании фильтров по цене
                 .get(0);//Получаем элемент с индексом 0
+        return new ItemPage(driver);
     }
 
     //Данный метод вводит мин-ую цену в фильтры
-    public void setMinPrice(Integer minValue){ //Обозначили Integer так как .sendKeys (метод исп-ван ниже) принимает только строку
+    public SearchResultPage setMinPrice(Integer minValue){ //Обозначили Integer так как .sendKeys (метод исп-ван ниже) принимает только строку
         driver.findElement(minPrice).sendKeys(String.valueOf(minValue)); //String.valueOf - данный метод нужен, чтобы превратить число в строку, так как sendKeys принимает только строку
+    return this;
     }
 
-    public void setMaxPrice(Integer maxValue){//Обозначили Integer так как .sendKeys (метод исп-ван ниже) принимает только строку
+    public SearchResultPage setMaxPrice(Integer maxValue){//Обозначили Integer так как .sendKeys (метод исп-ван ниже) принимает только строку
         driver.findElement(maxPrice).sendKeys(String.valueOf(maxValue));//String.valueOf - данный метод нужен, чтобы превратить число в строку, так как sendKeys принимает только строку
+    return this;
     }
 }
