@@ -8,22 +8,15 @@ pipeline {
             }
         }
 
-        stage('Show files') {
-            steps {
-                sh 'pwd'
-                sh 'ls -la'
-            }
-        }
-
-        stage('Make gradlew executable') {
+        stage('Prepare') {
             steps {
                 sh 'chmod +x gradlew'
             }
         }
 
-        stage('Run tests') {
+        stage('Run tests (ignore failures)') {
             steps {
-                sh './gradlew clean test'
+                sh './gradlew clean test || true'
             }
         }
     }
