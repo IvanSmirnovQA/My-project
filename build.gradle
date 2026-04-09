@@ -57,6 +57,8 @@ dependencies {
     testImplementation("org.apache.poi:poi:5.2.3")
 
     testImplementation("org.apache.poi:poi-ooxml:5.2.3")
+
+    testImplementation("ru.yandex.qatools.ashot:ashot:1.5.4")
 }
 
 //tasks.register("testNGRun", Test.class) {
@@ -92,10 +94,16 @@ tasks.withType(Test).configureEach {
     }
 }
 
-
-
-
     test {
         useJUnitPlatform()
 //        useTestNG()
+        systemProperties += [
+                'junit.jupiter.execution.parallel.enabled' : true,
+                'junit.jupiter.execution.parallel.mode.default' : 'concurrent',
+                'junit.jupiter.execution.parallel.mode.classes.default' : 'concurrent',
+                'junit.jupiter.execution.parallel.config.strategy' : 'fixed',
+                'junit.jupiter.execution.parallel.config.fixed.parallelism' : 3
+        ]
+
+
     }
